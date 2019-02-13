@@ -10,4 +10,5 @@ class PhantomJSMiddleware(object):
             driver.get(request.url)
             content = driver.page_source.encode('utf-8')
             driver.quit()
+
             return HtmlResponse(request.url, encoding='utf-8', body=content, request=request)
