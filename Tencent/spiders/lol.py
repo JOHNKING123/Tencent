@@ -9,7 +9,7 @@ class LoLSpider(scrapy.Spider):
     # 爬虫爬取数据的域范围
     allowed_domains = ['tieba.baidu.com']
     # 1. 需要拼接的url
-    baseURL = "https://tieba.baidu.com/f?kw=%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F&ie=utf-8&pn=0"
+    baseURL = "https://tieba.baidu.com/f?kw=%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F&ie=utf-8&pn=750"
     # 1. 需要拼接的url地址的偏移量
     offset = 0
     # 爬虫启动时，读取的url地址列表
@@ -30,8 +30,11 @@ class LoLSpider(scrapy.Spider):
 
                 item['title'] = node.xpath("./div/div")[1].xpath("./div")[0].xpath("./div")[0].xpath("./a/text()").extract()[0].encode("utf-8")
 
-                item['authorName'] = node.xpath("./div/div")[1].xpath("./div")[0].xpath("./div")[1].xpath("./span/span[@class='frs-author-name-wrap']/a/text()").extract()[0].encode("utf-8")
-
+                names = node.xpath("./div/div")[1].xpath("./div")[0].xpath("./div")[1].xpath("./span/span[@class='frs-author-name-wrap']/a/text()").extract();
+                if len(names) > 0 :
+                    item['authorName'] = node.xpath("./div/div")[1].xpath("./div")[0].xpath("./div")[1].xpath("./span/span[@class='frs-author-name-wrap']/a/text()").extract()[0].encode("utf-8")
+                else:
+                    item['authorName'] = ''
 
                 # yield 的重要性，是返回数据后还能回来接着执行代码
                 yield item
