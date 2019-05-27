@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+import urllib
+
+
+data = urllib.quote("中国")
+print data
+
+print urllib.unquote(data)

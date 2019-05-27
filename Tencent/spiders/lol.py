@@ -36,6 +36,11 @@ class LoLSpider(scrapy.Spider):
                 else:
                     item['authorName'] = ''
 
+                createdTimes = node.xpath("./div/div")[1].xpath("./div")[0].xpath("./div")[1].xpath("./span[contains(@class,'is_show_create_time')]/text()").extract();
+                if len(createdTimes) > 0 :
+                    item['createdTime'] = createdTimes[0].encode("utf-8")
+                else:
+                    item['createdTime'] = ''
                 # yield 的重要性，是返回数据后还能回来接着执行代码
                 yield item
 

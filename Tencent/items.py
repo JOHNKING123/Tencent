@@ -37,3 +37,57 @@ class LoLItem(scrapy.Item):
     #回复数
     replyNum = scrapy.Field()
 
+    #创建时间
+    createdTime = scrapy.Field()
+
+
+class TiebaItem(scrapy.Item):
+    #贴吧名称
+    tiebaName = scrapy.Field()
+
+    #标题
+    title = scrapy.Field()
+
+    #作者名称
+    authorName = scrapy.Field()
+
+    #回复数
+    replyNum = scrapy.Field()
+
+    #创建时间
+    createdTime = scrapy.Field()
+
+
+class TiebaUrlItem(scrapy.Item):
+    #主题
+    title = scrapy.Field()
+
+    #名称
+    name = scrapy.Field()
+
+    #链接
+    url = scrapy.Field()
+
+
+class   BaUrlItem(scrapy.Item):
+
+    id = scrapy.Field()
+
+    #相对类型
+    relativeType = scrapy.Field()
+
+    #链接
+    url = scrapy.Field()
+
+    #链接描述
+    urlDesc = scrapy.Field()
+
+    #基本地址
+    baseUrl = scrapy.Field()
+
+    #使用标记
+    usedFlag = scrapy.Field()
+
+
+
+
