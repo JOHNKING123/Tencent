@@ -11,7 +11,7 @@ class BaUrlSpider(scrapy.Spider):
     # 爬虫爬取数据的域范围
     allowed_domains = ['www.bjnews.com.cn']
     # 1. 需要拼接的url
-    baseURL = "http://www.bjnews.com.cn/ent/2019/05/23/582248.html"
+    baseURL = "http://www.bjnews.com.cn/sport/2019/04/28/573584.html"
     # 1. 需要拼接的url地址的偏移量
     offset = 0
     # 爬虫启动时，读取的url地址列表
