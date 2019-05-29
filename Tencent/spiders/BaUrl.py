@@ -11,7 +11,7 @@ class BaUrlSpider(scrapy.Spider):
     # 爬虫爬取数据的域范围
     allowed_domains = ['www.bjnews.com.cn']
     # 1. 需要拼接的url
-    baseURL = "http://www.bjnews.com.cn/"
+    baseURL = "http://www.bjnews.com.cn/ent/2019/05/23/582248.html"
     # 1. 需要拼接的url地址的偏移量
     offset = 0
     # 爬虫启动时，读取的url地址列表
@@ -65,16 +65,16 @@ class BaUrlSpider(scrapy.Spider):
         #     url = response.xpath("//a[contains(@class,'next')]/@href").extract()[0]
         #     yield scrapy.Request("http:" + url, callback = self.parse)
 
-        items =  self.baseUrlDao.getItems()
-        if len(items) > 0 :
-            for item in items:
-                url = item['url']
-                if item['relativeType'] == 2:
-                    url = item['baseUrl'] + item['url']
-                self.baseUrlDao.dealUsedItem(item)
-                if url not in self.dealedItems:
-                    self.dealedItems.add(url)
-                    yield scrapy.Request(url, callback=self.parse)
+        item =  self.baseUrlDao.getOneItem()
+        if len(item) > 0  :
+            url = item['url']
+            if item['relativeType'] == 2:
+                url = item['baseUrl'] + item['url']
+            self.baseUrlDao.dealUsedItem(item)
+            if url not in self.dealedItems:
+                self.dealedItems.add(url)
+                yield scrapy.Request(url, callback=self.parse)
+
 
     #def parse_next(self, response):
     #    pass

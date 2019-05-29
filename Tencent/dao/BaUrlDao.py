@@ -3,6 +3,7 @@ import pymysql
 
 from Tencent.items import BaUrlItem
 
+import Queue
 
 class BaUrlDao:
     def __init__(self):
@@ -10,6 +11,10 @@ class BaUrlDao:
         self.db = pymysql.connect("47.105.143.13", "root", "123456", "testDb", charset="utf8")
 
         self.cursor = self.db.cursor()
+
+        self.itemList = []
+
+        self.queue = Queue.Queue()
 
     def saveItem(self, item):
 
@@ -34,11 +39,14 @@ class BaUrlDao:
 
         sql = "select * from ba_url t WHERE t.relative_type = %s and url= \'%s\'" % \
               (item['relativeType'],item['url'])
-        self.cursor.execute(sql)
-        rs = self.cursor.fetchall()
-        if len(rs) > 0:
-            return True
-        return False
+        try:
+            self.cursor.execute(sql)
+            rs = self.cursor.fetchall()
+            if len(rs) > 0:
+                return True
+            return False
+        except:
+            return False
 
     def dealUsedItem(self,item):
 
@@ -77,6 +85,19 @@ class BaUrlDao:
             items.append(item)
 
         return items
+
+    def  getOneItem(self):
+
+        if not self.queue.empty():
+            item = self.queue.get()
+
+            return item
+        else:
+            items = self.getItems()
+            for item in items:
+                self.queue.put(item)
+            if not self.queue.empty():
+                return self.queue.get()
 
     def __del__(self):
         self.db.close()
