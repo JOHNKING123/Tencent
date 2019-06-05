@@ -41,7 +41,7 @@ class BaUrlSpider(scrapy.Spider):
                     if len(urlDesc) > 0:
                         urlDescStr = urlDesc.extract()[0].encode("utf-8")
 
-                    if hrefStr.find("qidian.com") != -1:
+                    if hrefStr.find("qidian.com") != -1 or hrefStr.startswith("//"):
 
                         if hrefStr.startswith("//") :
                             hrefStr = "https:"+hrefStr
