@@ -65,7 +65,7 @@ class BaUrlDao:
 
     def getItems(self):
 
-        sql = "select * from ba_url WHERE used_flag = 0"
+        sql = "select * from ba_url WHERE used_flag = 0 limit 10000"
 
         self.cursor.execute(sql)
 

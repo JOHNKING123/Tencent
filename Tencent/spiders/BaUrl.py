@@ -11,11 +11,11 @@ class BaUrlSpider(scrapy.Spider):
     # 爬虫爬取数据的域范围
     allowed_domains = ['www.qidian.com']
     # 1. 需要拼接的url
-    baseURL = "https://www.qidian.com/news/detail/028355461"
+    baseURL = "https://qidian.gtimg.com/yuewen/v1/css/images/yw-qrcode.png"
     # 1. 需要拼接的url地址的偏移量
     offset = 0
     # 爬虫启动时，读取的url地址列表
-    start_urls = [baseURL + str(offset)]
+    start_urls = [baseURL]
 
     def __init__(self):
         self.baseUrlDao = BaUrlDao()
@@ -26,7 +26,12 @@ class BaUrlSpider(scrapy.Spider):
     # 用来处理response
     def parse(self, response):
         # 提取每个response的数据
-        node_list = response.xpath("//a")
+        node_list = []
+        try:
+            response.xpath("//a")
+        except:
+            print "not support content"
+            node_list = []
 
         for node in node_list:
             href = node.xpath('@href')
