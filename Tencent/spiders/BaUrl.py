@@ -11,7 +11,7 @@ class BaUrlSpider(scrapy.Spider):
     # 爬虫爬取数据的域范围
     allowed_domains = ['www.qidian.com']
     # 1. 需要拼接的url
-    baseURL = "https://qidian.gtimg.com/yuewen/v1/css/images/yw-qrcode.png"
+    baseURL = "https://vipreader.qidian.com/chapter/1014215189/467624775"
     # 1. 需要拼接的url地址的偏移量
     offset = 0
     # 爬虫启动时，读取的url地址列表
@@ -28,7 +28,7 @@ class BaUrlSpider(scrapy.Spider):
         # 提取每个response的数据
         node_list = []
         try:
-            response.xpath("//a")
+            node_list =  response.xpath("//a")
         except:
             print "not support content"
             node_list = []
